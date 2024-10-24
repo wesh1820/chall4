@@ -1,26 +1,29 @@
+<!-- ChatMessages.vue -->
 <script setup>
-  import {onMounted, reactive} from 'vue';
+import { defineProps, onMounted, reactive } from 'vue';
 
-  const messages = reactive([]);
+const props = defineProps(['messages']); // Accept messages as a prop
 
-  onMounted(() => {
-    fetch('https://challenge4-9b1t.onrender.com/api/v1/messages')
-      .then(response => response.json())
-      .then(data => {
-        messages.push (...data.data.messages);
+onMounted(() => {
+  fetch('https://challenge4-9b1t.onrender.com/api/v1/messages')
+    .then(response => response.json())
+    .then(data => {
+      data.data.messages.forEach(message => {
+        props.messages.push(message); // Push existing messages into the reactive array
       });
-  });
+    });
+});
 </script>
 
 <template>
   <h2>Comments</h2>
-  <u>
-    <li v-for="message in messages">
+  <ul>
+    <li v-for="(message, index) in messages" :key="index">
       <strong>{{ message.user }}</strong>: {{ message.text }}
     </li>
-  </u>
+  </ul>
 </template>
 
 <style scoped>
-
+/* Add any styles for your ChatMessages component here */
 </style>

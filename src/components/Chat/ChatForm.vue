@@ -1,25 +1,30 @@
+<!-- ChatForm.vue -->
 <script setup>
-  import { ref, reactive } from 'vue';
+import { ref, defineEmits } from 'vue';
 
-  function doit(){
-    // comments.push({name: name.value, message: "Hello"});
+const emit = defineEmits();
+
+const messageText = ref('');
+
+function sendMessage() {
+  if (messageText.value.trim() !== '') {
+    const newMessage = {
+      user: 'Your Name', // Replace with the actual user name or fetch dynamically
+      text: messageText.value,
+    };
+    emit('sendMessage', newMessage); // Emit the new message to the parent
+    messageText.value = ''; // Clear the input after sending
   }
+}
 </script>
 
 <template>
   <div class="form">
-    <!-- <h3>{{ name }}</h3>
-    <ul>
-      <li v-for="comment in comments">
-        <strong>{{ comment.name }}</strong>: {{ comment.message }}
-      </li>
-    </ul> -->
-
-    <input  type="text" placeholder="Type your message here" />
-    <button @click="doit">Send</button>
+    <input v-model="messageText" type="text" placeholder="Type your message here" />
+    <button @click="sendMessage">Send</button>
   </div>
 </template>
 
 <style scoped>
-
+/* Add any styles for your ChatForm component here */
 </style>

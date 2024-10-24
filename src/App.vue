@@ -1,3 +1,21 @@
+<template>
+  <div class="grid">
+    <div class="player">
+      <VideoPlayer @prevVideo="prevVideo" @nextVideo="nextVideo" :videosrc="currentVideo"/>
+    </div>
+
+    <div class="messages">
+      <VideoDetails :title="currentTitle"/> 
+      <Chat :messages="messages"/>
+
+      <form @submit.prevent="postMessage">
+        <input v-model="newMessage" type="text" placeholder="Type your message" required />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </div>
+</template>
+
 <script setup>
 import { onMounted, ref, reactive } from 'vue';
 import VideoPlayer from './components/Video/VideoPlayer.vue';
@@ -9,6 +27,7 @@ const currentVideo = ref('');
 const videos = reactive([]);
 const currentVideoIndex = ref(0);
 const newMessage = ref('');
+const messages = reactive([]); // Array to store chat messages
 
 onMounted(() => {
   fetch('https://api.jsonbin.io/v3/b/670ccbfaad19ca34f8b81951')
@@ -44,7 +63,9 @@ function postMessage() {
     timestamp: new Date().toISOString(),
   };
 
-  fetch('YOUR_API_ENDPOINT', {
+  console.log('Posting message:', messageData); // Log the message being sent
+
+  fetch('YOUR_API_ENDPOINT', { // Replace with your API endpoint
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -58,6 +79,7 @@ function postMessage() {
       return response.json();
     })
     .then(data => {
+      messages.push(messageData); // Add to local messages array
       console.log('Message posted successfully:', data);
       newMessage.value = ''; // Clear input after submission
     })
@@ -66,24 +88,6 @@ function postMessage() {
     });
 }
 </script>
-
-<template>
-  <div class="grid">
-    <div class="player">
-      <VideoPlayer @prevVideo="prevVideo" @nextVideo="nextVideo" :videosrc="currentVideo"/>
-    </div>
-
-    <div class="messages">
-      <VideoDetails :title="currentTitle"/> 
-      <Chat/>
-
-      <form @submit.prevent="postMessage">
-        <input v-model="newMessage" type="text" placeholder="Type your message" required />
-        <button type="submit">Send</button>
-      </form>
-    </div>
-  </div>
-</template>
 
 <style scoped>
 .grid {
