@@ -11,6 +11,9 @@ onMounted(() => {
       data.data.messages.forEach(message => {
         props.messages.push(message); // Push existing messages into the reactive array
       });
+    })
+    .catch(error => {
+      console.error('Error fetching messages:', error);
     });
 });
 </script>

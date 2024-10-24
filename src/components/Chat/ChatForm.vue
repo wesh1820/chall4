@@ -3,17 +3,16 @@
 import { ref, defineEmits } from 'vue';
 
 const emit = defineEmits();
-
 const messageText = ref('');
 
 function sendMessage() {
   if (messageText.value.trim() !== '') {
     const newMessage = {
-      user: 'Your Name', // Replace with the actual user name or fetch dynamically
+      user: 'Your Name', // Replace with actual user name or fetch dynamically
       text: messageText.value,
     };
     emit('sendMessage', newMessage); // Emit the new message to the parent
-    messageText.value = ''; // Clear the input after sending
+    messageText.value = ''; // Clear input after sending
   }
 }
 </script>
