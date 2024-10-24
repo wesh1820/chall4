@@ -1,19 +1,26 @@
 <script setup>
-import { defineProps } from 'vue';
-const props = defineProps({
-  messages: Array
-});
+  import {onMounted, reactive} from 'vue';
+
+  const messages = reactive([]);
+
+  onMounted(() => {
+    fetch('https://challenge4-9b1t.onrender.com/api/v1/messages')
+      .then(response => response.json())
+      .then(data => {
+        messages.push (...data.data.messages);
+      });
+  });
 </script>
 
 <template>
   <h2>Comments</h2>
-  <ul>
-    <li v-for="message in messages" :key="message.timestamp">
+  <u>
+    <li v-for="message in messages">
       <strong>{{ message.user }}</strong>: {{ message.text }}
     </li>
-  </ul>
+  </u>
 </template>
 
 <style scoped>
-/* Voeg styling toe indien nodig */
+
 </style>

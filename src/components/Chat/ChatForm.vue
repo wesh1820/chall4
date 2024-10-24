@@ -1,29 +1,32 @@
 <script setup>
-import { ref } from 'vue';
-const messageText = ref('');
+  import { ref, reactive } from 'vue';
 
-function sendMessage() {
-  if (messageText.value.trim() === '') return; // Zorg ervoor dat er geen lege berichten worden verzonden
+  let name = ref("Anomi");
+  let comments = reactive([
+    {name: "Anomi",message: "Hello, how are you?"},
+    {name: "Omi",message: "I'm fine, thank you!"},
+    {name: "Sheba",message: "WEEEEEEEEEEEE!"}
+  ]);
 
-  const newMessage = {
-    user: 'Anonymous', // Pas dit aan als je gebruikersnamen hebt
-    text: messageText.value,
-  };
-
-  // Emit het nieuwe bericht naar de oudercomponent
-  emit('messageSent', newMessage);
-
-  messageText.value = ''; // Leeg het invoerveld na het verzenden
-}
+  function doit(){
+    comments.push({name: name.value, message: "Hello"});
+  }
 </script>
 
 <template>
   <div class="form">
-    <input v-model="messageText" type="text" placeholder="Type your message here" />
-    <button @click="sendMessage">Send</button>
+    <h3>{{ name }}</h3>
+    <ul>
+      <li v-for="comment in comments">
+        <strong>{{ comment.name }}</strong>: {{ comment.message }}
+      </li>
+    </ul>
+
+    <input  type="text" placeholder="Type your message here" />
+    <button @click="doit">Send</button>
   </div>
 </template>
 
 <style scoped>
-/* Voeg styling toe indien nodig */
+
 </style>
