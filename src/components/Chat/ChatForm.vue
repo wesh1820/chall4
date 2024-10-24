@@ -1,13 +1,6 @@
 <script setup>
   import { ref, reactive } from 'vue';
 
-  // let name = ref("Anomi");
-  // let comments = reactive([
-  //   {name: "Anomi",message: "Hello, how are you?"},
-  //   {name: "Omi",message: "I'm fine, thank you!"},
-  //   {name: "Sheba",message: "WEEEEEEEEEEEE!"}
-  // ]);
-
   function doit(){
     // comments.push({name: name.value, message: "Hello"});
   }
