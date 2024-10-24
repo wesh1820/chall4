@@ -3,7 +3,7 @@ import { onMounted, reactive } from 'vue';
 
 // Reactive state voor berichten en nieuwe berichten
 const messages = reactive([]);
-const newMessage = reactive({ user: '', text: '' });
+const newMessage = reactive({ user: 'Wesley', text: '' });
 
 // Functie om berichten van de API te halen
 onMounted(() => {
