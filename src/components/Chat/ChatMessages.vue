@@ -6,7 +6,7 @@ const props = defineProps(['messages']);
 </script>
 
 <template>
-  <h2>Comments</h2>
+  <h2>Messages</h2>
   <ul>
     <li v-for="(message, index) in messages" :key="index">
       <strong>{{ message.user }}</strong>: {{ message.text }}

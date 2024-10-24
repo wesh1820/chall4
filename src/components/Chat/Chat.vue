@@ -11,9 +11,7 @@ onMounted(() => {
   fetch('https://challenge4-9b1t.onrender.com/api/v1/messages')
     .then(response => response.json())
     .then(data => {
-      data.data.messages.forEach(message => {
-        messages.push(message); // Populate the messages array
-      });
+      messages.push(...data.data.messages); // Populate the messages array
     })
     .catch(error => {
       console.error('Error fetching messages:', error);
@@ -21,7 +19,7 @@ onMounted(() => {
 });
 
 function addMessage(newMessage) {
-  messages.push(newMessage); // Add to local messages array
+  messages.unshift(newMessage); // Add to the top of local messages array
 
   // Send the new message to the API
   fetch('https://challenge4-9b1t.onrender.com/api/v1/messages', {
