@@ -6,7 +6,7 @@ import { reactive } from 'vue';
 const messages = reactive([]);
 
 // Vervang dit door je eigen API endpoint URL
-const API_URL = 'https://challenge4-9b1t.onrender.com';
+const API_URL = 'https://challenge4-9b1t.onrender.com/api/v1/messages';
 
 // Functie om berichten op te halen
 async function fetchMessages() {
