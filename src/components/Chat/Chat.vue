@@ -1,4 +1,4 @@
-<!-- Chat.vue -->
+<!-- src/components/Chat.vue -->
 <template>
   <ChatMessages :messages="messages" />
   <ChatForm @sendMessage="addMessage" />
@@ -14,7 +14,12 @@ const messages = reactive([]);
 // Fetch messages from the API on component mount
 onMounted(() => {
   fetch('https://challenge4-9b1t.onrender.com/api/v1/messages')
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
     .then(data => {
       messages.push(...data.data.messages); // Populate the messages array
     })
@@ -27,13 +32,19 @@ onMounted(() => {
 function addMessage(newMessage) {
   messages.unshift(newMessage); // Add to the top of local messages array
 
+  // Construct payload for the API
+  const payload = {
+    user: newMessage.user, // Ensure this matches API's expectations
+    text: newMessage.text,
+  };
+
   // Send the new message to the API
   fetch('https://challenge4-9b1t.onrender.com/api/v1/messages', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(newMessage),
+    body: JSON.stringify(payload),
   })
     .then(response => {
       if (!response.ok) {

@@ -1,4 +1,4 @@
-<!-- ChatForm.vue -->
+<!-- src/components/ChatForm.vue -->
 <template>
   <div class="form">
     <input v-model="messageText" type="text" placeholder="Type your message here" />

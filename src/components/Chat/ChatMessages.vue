@@ -1,4 +1,4 @@
-<!-- ChatMessages.vue -->
+<!-- src/components/ChatMessages.vue -->
 <template>
   <h2>Messages</h2>
   <ul>
