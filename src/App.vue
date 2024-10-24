@@ -6,7 +6,7 @@
 
     <div class="messages">
       <VideoDetails :title="currentTitle"/> 
-      <Chat :messages="messages"/> <!-- Gebruik de Chat component -->
+      <Chat />
     </div>
   </div>
 </template>
@@ -26,13 +26,23 @@ onMounted(() => {
   fetch('https://api.jsonbin.io/v3/b/670ccbfaad19ca34f8b81951')
     .then(response => response.json())
     .then(data => {
-      videos.value = data.record.data.videos;
-      currentVideo.value = videos.value[0].video;
-      currentTitle.value = videos.value[0].description;
+      videos.push(...data.record.data.videos);
+      currentVideo.value = videos[0].video;
+      currentTitle.value = videos[0].description;
     });
 });
 
-// Video management functions here...
+function nextVideo() {
+  currentVideoIndex.value = (currentVideoIndex.value + 1) % videos.length;
+  currentVideo.value = videos[currentVideoIndex.value].video;
+  currentTitle.value = videos[currentVideoIndex.value].description;
+}
+
+function prevVideo() {
+  currentVideoIndex.value = (currentVideoIndex.value - 1 + videos.length) % videos.length;
+  currentVideo.value = videos[currentVideoIndex.value].video;
+  currentTitle.value = videos[currentVideoIndex.value].description;
+}
 </script>
 
 <style scoped>

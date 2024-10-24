@@ -1,6 +1,11 @@
 <!-- Chat.vue -->
+<template>
+  <ChatMessages :messages="messages" />
+  <ChatForm @sendMessage="addMessage" />
+</template>
+
 <script setup>
-import { ref, reactive, onMounted } from 'vue';
+import { reactive, onMounted } from 'vue';
 import ChatMessages from './ChatMessages.vue';
 import ChatForm from './ChatForm.vue';
 
@@ -18,6 +23,7 @@ onMounted(() => {
     });
 });
 
+// Function to add a new message
 function addMessage(newMessage) {
   messages.unshift(newMessage); // Add to the top of local messages array
 
@@ -29,7 +35,12 @@ function addMessage(newMessage) {
     },
     body: JSON.stringify(newMessage),
   })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
+    })
     .then(data => {
       console.log('Message posted successfully:', data);
     })
@@ -38,11 +49,6 @@ function addMessage(newMessage) {
     });
 }
 </script>
-
-<template>
-  <ChatMessages :messages="messages" />
-  <ChatForm @sendMessage="addMessage" />
-</template>
 
 <style scoped>
 /* Add any styles for your Chat component here */

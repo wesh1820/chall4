@@ -1,10 +1,4 @@
 <!-- ChatMessages.vue -->
-<script setup>
-import { defineProps } from 'vue';
-
-const props = defineProps(['messages']);
-</script>
-
 <template>
   <h2>Messages</h2>
   <ul>
@@ -13,6 +7,12 @@ const props = defineProps(['messages']);
     </li>
   </ul>
 </template>
+
+<script setup>
+import { defineProps } from 'vue';
+
+const props = defineProps(['messages']);
+</script>
 
 <style scoped>
 /* Add any styles for your ChatMessages component here */

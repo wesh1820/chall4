@@ -1,4 +1,11 @@
 <!-- ChatForm.vue -->
+<template>
+  <div class="form">
+    <input v-model="messageText" type="text" placeholder="Type your message here" />
+    <button @click="sendMessage">Send</button>
+  </div>
+</template>
+
 <script setup>
 import { ref, defineEmits } from 'vue';
 
@@ -17,13 +24,17 @@ function sendMessage() {
 }
 </script>
 
-<template>
-  <div class="form">
-    <input v-model="messageText" type="text" placeholder="Type your message here" />
-    <button @click="sendMessage">Send</button>
-  </div>
-</template>
-
 <style scoped>
-/* Add any styles for your ChatForm component here */
+.form {
+  display: flex;
+  margin-top: 1rem;
+}
+input {
+  flex: 1;
+  margin-right: 0.5rem;
+  padding: 0.5rem;
+}
+button {
+  padding: 0.5rem;
+}
 </style>
