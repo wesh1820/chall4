@@ -2,8 +2,6 @@
 import { onMounted, reactive } from 'vue';
 
 const messages = reactive([]);
-
-// Reactive object for the new message input
 const newMessage = reactive({
   user: '',
   text: ''
@@ -14,11 +12,12 @@ onMounted(() => {
     .then(response => response.json())
     .then(data => {
       messages.push(...data.data.messages);
-    });
+    })
+    .catch(error => console.error('Error fetching messages:', error));
 });
 
-// Function to post a new message to the API
 const postMessage = () => {
+  console.log('Posting message:', newMessage); // Log the message being posted
   fetch('https://challenge4-9b1t.onrender.com/api/v1/messages', {
     method: 'POST',
     headers: {
@@ -26,24 +25,30 @@ const postMessage = () => {
     },
     body: JSON.stringify(newMessage)
   })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.json();
+    })
     .then(data => {
+      console.log(data); // Log the response for debugging
       if (data.success) {
-        messages.push(newMessage); // Add the new message to the list
-        newMessage.user = ''; // Clear the user input
-        newMessage.text = ''; // Clear the text input
+        messages.push({ ...newMessage });
+        newMessage.user = '';
+        newMessage.text = '';
       } else {
         console.error('Error posting message:', data.message);
       }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.error('Error posting message:', error));
 };
 </script>
 
 <template>
   <h2>Comments</h2>
   <ul>
-    <li v-for="message in messages" :key="message.id"> <!-- Assuming 'id' is a unique identifier -->
+    <li v-for="message in messages" :key="message.id">
       <strong>{{ message.user }}</strong>: {{ message.text }}
     </li>
   </ul>
