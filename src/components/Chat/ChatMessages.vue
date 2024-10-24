@@ -44,7 +44,6 @@ const postMessage = () => {
 
   <!-- Formulier om een nieuw bericht toe te voegen -->
   <div>
-    <input v-model="newMessage.user" placeholder="Your name" />
     <input v-model="newMessage.text" placeholder="Your message" />
     <button @click="postMessage">Send</button>
   </div>
