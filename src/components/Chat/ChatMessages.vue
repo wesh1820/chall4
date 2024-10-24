@@ -27,7 +27,7 @@ const postMessage = () => {
     .then(data => {
       // Voeg het nieuwe bericht toe aan de lijst en reset het formulier
       messages.push(data.data.message);
-      newMessage.user = '';
+      newMessage.user = 'Wesley';
       newMessage.text = '';
     })
     .catch(error => console.error('Error:', error));
