@@ -25,7 +25,7 @@ const postMessage = async () => {
     <div>
       <!-- Verwijder de invoer voor de naam -->
       <input v-model="newMessage.text" placeholder="Your message" />
-      <button @click="postMessage">Send</button>
+      <button @click="postMessage">Sendd</button>
     </div>
   </div>
 </template>
