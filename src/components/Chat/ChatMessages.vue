@@ -4,7 +4,7 @@
   const messages = reactive([]);
 
   onMounted(() => {
-    fetch('')
+    fetch('https://les3.onrender.com/api/v1/messages')
       .then(response => response.json())
       .then(data => {
         messages.push (...data.data.messages);
