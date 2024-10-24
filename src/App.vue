@@ -7,11 +7,6 @@
     <div class="messages">
       <VideoDetails :title="currentTitle"/> 
       <Chat :messages="messages"/>
-
-      <form @submit.prevent="postMessage">
-        <input v-model="newMessage" type="text" placeholder="Type your message" required />
-        <button type="submit">Send</button>
-      </form>
     </div>
   </div>
 </template>
