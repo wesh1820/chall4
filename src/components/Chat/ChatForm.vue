@@ -6,14 +6,14 @@ function sendMessage() {
   if (messageText.value.trim() === '') return; // Zorg ervoor dat er geen lege berichten worden verzonden
 
   const newMessage = {
-    user: 'Anonymous', // Je kunt de user aanpassen als dat nodig is
+    user: 'Anonymous', // Pas dit aan als je gebruikersnamen hebt
     text: messageText.value,
   };
 
   // Emit het nieuwe bericht naar de oudercomponent
   emit('messageSent', newMessage);
 
-  messageText.value = ''; // Leeg het invoerveld
+  messageText.value = ''; // Leeg het invoerveld na het verzenden
 }
 </script>
 
