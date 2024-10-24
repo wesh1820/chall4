@@ -1,10 +1,24 @@
 <!-- Chat.vue -->
 <script setup>
-import { ref, reactive } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 import ChatMessages from './ChatMessages.vue';
 import ChatForm from './ChatForm.vue';
 
 const messages = reactive([]);
+
+// Fetch messages from the API on component mount
+onMounted(() => {
+  fetch('https://challenge4-9b1t.onrender.com/api/v1/messages')
+    .then(response => response.json())
+    .then(data => {
+      data.data.messages.forEach(message => {
+        messages.push(message); // Populate the messages array
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching messages:', error);
+    });
+});
 
 function addMessage(newMessage) {
   messages.push(newMessage); // Add to local messages array
@@ -17,13 +31,13 @@ function addMessage(newMessage) {
     },
     body: JSON.stringify(newMessage),
   })
-  .then(response => response.json())
-  .then(data => {
-    console.log('Message posted successfully:', data);
-  })
-  .catch(error => {
-    console.error('Error posting message:', error);
-  });
+    .then(response => response.json())
+    .then(data => {
+      console.log('Message posted successfully:', data);
+    })
+    .catch(error => {
+      console.error('Error posting message:', error);
+    });
 }
 </script>
 

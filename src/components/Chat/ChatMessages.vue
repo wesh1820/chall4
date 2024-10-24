@@ -1,21 +1,8 @@
 <!-- ChatMessages.vue -->
 <script setup>
-import { defineProps, onMounted, reactive } from 'vue';
+import { defineProps } from 'vue';
 
-const props = defineProps(['messages']); // Accept messages as a prop
-
-onMounted(() => {
-  fetch('https://challenge4-9b1t.onrender.com/api/v1/messages')
-    .then(response => response.json())
-    .then(data => {
-      data.data.messages.forEach(message => {
-        props.messages.push(message); // Push existing messages into the reactive array
-      });
-    })
-    .catch(error => {
-      console.error('Error fetching messages:', error);
-    });
-});
+const props = defineProps(['messages']);
 </script>
 
 <template>
