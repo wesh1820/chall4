@@ -8,9 +8,11 @@
 
 <template>
   <div class="form">
-
-    <input  type="text" placeholder="Type your message here" />
-    <button @click="doit">Send</button>
+    <div>
+    <input v-model="newMessage.user" placeholder="Your name" />
+    <input v-model="newMessage.text" placeholder="Your message" />
+    <button @click="postMessage">Send</button>
+  </div>
   </div>
 </template>
 
